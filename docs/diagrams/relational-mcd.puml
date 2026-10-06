@@ -1,0 +1,140 @@
+@startuml
+
+abstract class Projet<<abstract>>{
+titre :str
+description :str
+objectif_financier : decimal
+date_lancement : date
+}
+
+
+
+class Projet_technologique{
+type_innovation :str
+}
+class Projet_artistique{
+medium : str
+}
+
+class Projet_social{
+region_cible : str
+
+}
+
+
+class ONG{
+num_ONG {key} : int
+nom_ONG : str
+pays : str
+}
+
+
+class MembreEquipe{
+'nom_membre : str
+prenom :str
+pays_residence : str
+
+'role :Role_membre
+}
+class Incubateur{
+nom_incubateur : str
+annee_creation : date
+budget : float
+}
+
+class Utilisateur {
+pseudo {key} : str
+adresse_mail : str
+'nom_utilisateur : str
+}
+
+Personne <|-- Utilisateur
+Personne <|-- MembreEquipe
+
+abstract class Contrepartie <<abstract>>{
+}
+class Contrepartie_numerique{
+format_fichier : str
+'format
+taille : float
+}
+class Contrepartie_physique{
+poid : float
+frais_livraison : decimal
+}
+ 
+class Transporteur{
+nom_tr:str
+delai_livraison : int
+}
+
+abstract Class Personne <<abstract>>
+{
+    nom : str
+    date_naissance : date
+}
+
+class PorterPar {
+   role :  Role_membre
+}
+
+enum Role_membre{
+chef_projet
+developpeur
+designer
+community_manager
+}
+
+class Contribution {
+date_heure: dateTime
+montant : decimal
+}
+
+class  Evaluer{
+    note  : int
+    avis_text : str
+    date_avis :date
+}
+
+Contrepartie_physique--|>Contrepartie
+Contrepartie_numerique--|>Contrepartie
+Contrepartie_physique "1..*" -- "1" Transporteur : > expedie par
+Projet_social --|>Projet
+Projet_artistique --|>Projet
+Projet_technologique --|>Projet
+Projet_social "1..*" -- "1..*" ONG : > soutenu par
+Projet"0..*" --"0..1" Incubateur : < accompagne
+
+'Utilisateur"1"--"0..*"Contribution : < lie
+'Projet "1"-- "0..*"Contribution: < lie
+'Contrepartie "0..1" -- "1..1" Contribution : > est incluse
+
+Utilisateur"1" --"0..*"Evaluer
+Projet "1" -- "0..*" Evaluer
+Utilisateur "*" -- "*" Projet
+(Utilisateur,Projet) .. Contribution
+
+Projet "1" -- "0..*" PorterPar
+MembreEquipe "1" -- "0..*" PorterPar
+
+Contribution "0..1"-- "0..1" Contrepartie : > choisit une
+'Projet *--Contrepartie
+Projet "1" *-- "0..*" Contrepartie
+
+note bottom of Evaluer : Contrainte : Un (Utilisateur, Projet) ne peut avoir qu'une seul Evaluation.\n- L'utilisateur doit avoir au moins une\n  Contribution sur le Projet avant d'evaluer.
+
+note bottom of PorterPar : Contrainte : Un membre d'Equipe a un role\nunique par projet (pas de doublon de role\npour un meme membre sur un meme projet).
+
+note top of Contribution : Contrainte : Plusieurs contributions d'un\nmeme utilisateur vers un meme projet\nsont possibles (dateHeure differente).
+
+
+'ajout du type enum pour le role des membres
+'un projet peut etre officiellement soutenu par une ou plusieurs ONG, pas 0 ou plusieures
+'ajout de la classe d'association "contribution" pour utilisateur et projet
+'contribution type datetime?
+'contrepartie <<abstract>>
+'contrepartie_physique "1..*" --"1"transporteur : >associe -> expedie
+'
+
+
+@enduml

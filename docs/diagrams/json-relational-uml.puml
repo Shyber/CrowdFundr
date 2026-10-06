@@ -1,0 +1,102 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+Enum TypeProjet {
+  technologique
+  artistique
+  social
+}
+
+
+
+class Projet {
+  idProjet {key} : int
+  titre : str
+  description : str
+  objectif_financier : decimal
+  date_lancement : date
+
+  type_projet : TypeProjet
+  details_projet : JSON
+
+
+  contreparties : JSON[]
+  equipe : JSON[]
+  evaluations : JSON[]
+  soutiens_ong : JSON[]
+}
+
+class Utilisateur {
+  pseudo {key} : str
+  nom : str
+  date_naissance : date
+  adresse_mail : str
+}
+
+
+
+class Incubateur {
+  idIncubateur {key} : int
+  nom_incubateur : str
+  annee_creation : date
+  budget : float
+}
+
+
+
+
+
+class Contribution {
+  idContribution {key} : int
+  date_heure : dateTime
+  montant : decimal
+  contrepartie_choisie : JSON
+}
+
+Projet "0..*" --> "0..1" Incubateur : accompagne par
+Utilisateur "1" --> "0..*" Contribution : effectue
+Projet "1" --> "0..*" Contribution : reçoit
+
+note right of Projet
+Attributs JSON contenus dans Projet :
+
+details_projet :
+- si technologique : type_innovation
+- si artistique : medium
+- si social : region_cible
+
+contreparties[] :
+- numerique : format_fichier, taille
+- physique : poids, frais_livraison, Transporteur: 
+                                                  -nom_tr
+                                                  -delai_livraison
+
+equipe[] :
+- idMembre
+- nom
+- prenom
+- date_naissance
+- pays_residence
+- role (chef_projet, developpeur, designer, community_manager)
+
+evaluations[] :
+- pseudo
+- note
+- avis_text
+- date_avis
+
+soutiens_ong[] :
+- num_ONG
+- nom_ONG
+- pays
+end note
+
+note bottom of Contribution
+Contribution reste une classe/table relationnelle
+car elle contient les montants financiers.
+
+contrepartie_choisie est stockée en JSON.
+end note
+
+@enduml

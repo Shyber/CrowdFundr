@@ -7,7 +7,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
 ![PlantUML](https://img.shields.io/badge/UML-PlantUML-blue)
 
-> Projet universitaire en équipe (cours de bases de données, 4 étudiants). La documentation du projet et ce README sont rédigés en français.
+> Projet universitaire en équipe (cours de  conception de bases de données, 4 étudiants).
 
 ## À propos
 

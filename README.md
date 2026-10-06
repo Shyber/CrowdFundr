@@ -126,4 +126,4 @@ python mongodb/app.py
 
 - [Énoncé du projet](docs/ENONCE.md)
 - [Note de clarification](docs/NOTE_DE_CLARIFICATION.md)
-- Modèles logiques : [relationnel v1](docs/modeling/relational-mld-v1.md) · [relationnel v2](docs/modeling/relational-mld-v2.md) · [JSON-relationnel](docs/modeling/json-relational-mld.md)
+- Modèles logiques : [relationnel](docs/modeling/relational-mld-v2.md) · [JSON-relationnel](docs/modeling/json-relational-mld.md)
